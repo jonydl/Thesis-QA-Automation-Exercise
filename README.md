@@ -3,7 +3,7 @@
 ## Project Description
 This is an exercise for the QA Automation role at Thesis. The project consists of automating specific user flows of the website https://automationexercise.com.
 
-## QA - Test Strategy
+## QA - Test Plan
 1. Read the exercise documentation to identify user journey flows.
 2. Run a quick manual exploratory pass.
 3. Setup a GitHub repository and clone it.
@@ -14,7 +14,7 @@ This is an exercise for the QA Automation role at Thesis. The project consists o
 8. Run tests, identify bugs.
 9. Upload to GitHub repository.
 
-## QA - Automation Test Plan:
+## QA - Project Objective:
 ### Part 1 — Framework Structure (30 mins)
 Set up a basic Page Object Model structure. Create page objects for:
 - HomePage — navigation
@@ -53,7 +53,6 @@ Write a short README.md that covers:
 - Did you use AI to aid with any of this exercise? If so, where and why?
 - Anything you'd improve or add given more time.
 
-
 ## Project Installation & Setup
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -70,14 +69,12 @@ npm install
 npm init playwright@latest
 ```
 
-## Setup Verification
+### Setup Verification
 ```
 npx playwright test --project=chromium
 ```
 
-
 ## Running Tests
-
 ### Run all tests
 ```bash
 npx playwright test
@@ -120,10 +117,9 @@ npx playwright show-report
 - **tests/** — Test specifications
   - `product-search.spec.ts` — Product search functionality.
   - `add-to-cart.spec.ts` — Add to cart and verification.
-  - `contact-form-submission.spec.ts` — Contact form submission.
+  - `contact-form.spec.ts` — Contact form submission.
 
 ## AI Assistance
-
 Yes, AI was used in this exercise for:
 - **Code structure review** — Validating POM implementation best practices and autocompletion using VSCode Intelisense.
 - **Selector optimization** — Improving locator reliability and resilience.
@@ -133,7 +129,6 @@ Yes, AI was used in this exercise for:
 The core test logic, page objects, and automation strategy were developed independently.
 
 ## QA - Known Issues & Limitations
-
 **[Bug-001][High Priority] Product search for "Dress" returns unrelated items due to site categorization bug**
 - **Impact:** Product search test assertion may fail on some runs due wrong locator IDs
 - **Fix:** Locator IDs for some items should be reviewed to avoid wrong products from being listed
@@ -154,7 +149,6 @@ The core test logic, page objects, and automation strategy were developed indepe
 - **Fix:** Implement consistent locators types for all page elements
 
 ## Future Improvements
-
 With more time, I would:
 
 1. **Test data management** — Create fixtures/factories for test data instead of hardcoded values.
