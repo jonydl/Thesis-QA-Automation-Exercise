@@ -1,7 +1,9 @@
 # Thesis-QA-Automation-Exercise
 
-## Project Description
-This is an exercise for the QA Automation role at Thesis. The project consists of automating specific user flows of the website https://automationexercise.com.
+This project is an exercise for the QA Automation role at Thesis SM. 
+The project consists of automating specific user flows of the website https://automationexercise.com using Playwright and Typescript.
+
+---
 
 ## QA - Test Plan
 1. Read the exercise documentation to identify user journey flows.
@@ -53,6 +55,8 @@ Write a short README.md that covers:
 - Did you use AI to aid with any of this exercise? If so, where and why?
 - Anything you'd improve or add given more time.
 
+---
+
 ## Project Installation & Setup
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -74,53 +78,39 @@ npm init playwright@latest
 npx playwright test --project=chromium
 ```
 
-## Running Tests
-### Run all tests
-```bash
-npx playwright test
-```
+## Running Tests / Test commands
 
-### Run tests with Playwright UI
-```bash
-npx playwright test --ui
-```
-
-### Run tests with a specific browser
-```bash
-npx playwright test --project=chromium
-```
-
-### Run a specific test file
-```bash
-npx playwright test tests/product-search.spec.ts
-```
-
-### Run tests in headed mode (see browser)
-```bash
-npx playwright test --headed
-```
-
-### View test results
-```bash
-npx playwright show-report
-```
+| Command | Description |
+|---------|-------------|
+| `npx playwright test` | Run all tests |
+| `npx playwright test --ui` | Open test folder within Playwright UI |
+| `npx playwright test tests/product-search.spec.ts` | Run a specific test file |
+| `npx playwright test --project=chromium` | Run on Chrome only |
+| `npx playwright test --project=firefox` | Run on Firefox only |
+| `npx playwright test --project=webkit` | Run on Safari only |
+| `npx playwright test --headed` | Run in headed mode (visible browser) |
+| `npx playwright test --debug` | Run tests in debug mode |
+| `npx playwright show-report` | View HTML test report |
 
 ## Project Structure
 
-- **pages/** — Page Object Model classes encapsulating page interactions
-  - `BasePage.ts` — Base class with common functionality (navigation, waits).
-  - `HomePage.ts` — Home page navigation methods.
-  - `ProductsPage.ts` — Product search and "add to cart" functionality.
-  - `CartPage.ts` — Cart verification methods.
-  - `ContactPage.ts` — Contact form interactions.
+```
+├── pages/
+│   ├── BasePage.ts                # Base class with common functionality (navigation, waits)
+│   ├── HomePage.ts                # Home page navigation methods.
+│   ├── ProductPage.ts             # Product search and "add to cart" functionality.
+│   ├── CartPage.ts                # Cart verification methods.
+│   └── ContactPage.ts             # Contact form interactions.
+└── tests/               
+   ├── product-search.spec.ts      # Product search functionality.
+   ├── add-to-cart.spec.ts         # Add to cart and verification.
+   └── contact-form.spec.ts        # Contact form submission.
+```
 
-- **tests/** — Test specifications
-  - `product-search.spec.ts` — Product search functionality.
-  - `add-to-cart.spec.ts` — Add to cart and verification.
-  - `contact-form.spec.ts` — Contact form submission.
+---
 
 ## AI Assistance
-Yes, AI was used in this exercise for:
+AI was used in this exercise for:
 - **Code structure review** — Validating POM implementation best practices and autocompletion using VSCode Intelisense.
 - **Selector optimization** — Improving locator reliability and resilience.
 - **Error handling patterns** — Implementing proper wait strategies.
@@ -128,7 +118,9 @@ Yes, AI was used in this exercise for:
 
 The core test logic, page objects, and automation strategy were developed independently.
 
-## QA - Known Issues & Limitations
+---
+
+## QA - Known Issues, Bugs & Limitations
 **[Bug-001][High Priority] Product search for "Dress" returns unrelated items due to site categorization bug**
 - **Impact:** Product search test assertion may fail on some runs due wrong locator IDs
 - **Fix:** Locator IDs for some items should be reviewed to avoid wrong products from being listed
@@ -147,6 +139,8 @@ The core test logic, page objects, and automation strategy were developed indepe
 
 **[Bug-005][Mid] Inconsistent search locators within the ProductsPage may create flaky tests**
 - **Fix:** Implement consistent locators types for all page elements
+
+---
 
 ## Future Improvements
 With more time, I would:
