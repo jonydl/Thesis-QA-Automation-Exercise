@@ -18,6 +18,7 @@ test.describe('Add to Cart Functionality', () => {
         //Bypass cookies bug
         await homePage.bypassCookiesBug();
         await productsPage.gotoProductsPage();
+        await productsPage.bypassCookiesBug();
     });
 
     test('Add two products to cart and verify count', async ({ page }) => {
