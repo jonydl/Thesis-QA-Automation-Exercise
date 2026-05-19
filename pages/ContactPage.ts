@@ -2,49 +2,42 @@ import { expect, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class ContactPage extends BasePage {
-    // Contact form fields and submit button
-    readonly nameInput = this.page.getByRole('textbox', { name: 'Name' });
-    readonly emailInput = this.page.getByRole('textbox', { name: 'Email', exact: true });
-    readonly subjectInput = this.page.getByRole('textbox', { name: 'Subject' });
-    readonly messageInput = this.page.getByRole('textbox', { name: 'Message' });
-    readonly submitButton = this.page.getByRole('button', { name: 'Submit' });
-
-    // URL for the contact page
-    readonly url = 'https://automationexercise.com/contact_us';
+    readonly nameInput = this.page.getByRole('textbox', { name: /Name/i });
+    readonly emailInput = this.page.getByRole('textbox', { name: /Email/i });
+    readonly subjectInput = this.page.getByRole('textbox', { name: /Subject/i });
+    readonly messageInput = this.page.getByRole('textbox', { name: /Message/i });
+    readonly submitButton = this.page.getByRole('button', { name: /Submit/i });
+    readonly successMessage = this.page.locator('#contact-page').getByText('Success! Your details have been submitted successfully.');
 
     constructor(page: Page) {
         super(page);
     }
 
-    // Navigate to the contact page when the method is called
+    // Navigate directly to the Contact Us page and accept cookies if they appear.
     async goToContactPage(): Promise<void> {
-        await this.page.goto(this.url);
-
-        // Workaround to bypass the page cookies bug that prevents UI elements from being selected
-        await this.page.locator('.fc-dialog-overlay').waitFor({ state: 'visible' });
-        await this.page.getByRole('button', { name: 'Consent' }).click();
+        await this.page.goto('/contact_us');
+        await this.waitForPageLoad();
+        await this.acceptCookiesIfVisible();
     }
 
-    // Fill the contact form with provided details
+    // Fill contact form fields with the provided values.
     async fillContactForm(name: string, email: string, subject: string, message: string): Promise<void> {
+        await expect(this.nameInput).toBeVisible({ timeout: 10000 });
         await this.nameInput.fill(name);
         await this.emailInput.fill(email);
         await this.subjectInput.fill(subject);
         await this.messageInput.fill(message);
     }
 
-    // Submit the contact form and handle the console dialog that appears after submission
+    // Submit the contact form and handle the browser dialog in a stable manner.
     async submitForm(): Promise<void> {
-        await this.submitButton.click();
+        const [dialog] = await Promise.all([
+            this.page.waitForEvent('dialog'),
+            this.submitButton.click(),
+        ]);
 
-        // Wait for the console dialog to appear and verify the message
-        const dialog = await this.page.on('dialog', async dialog => {
-            expect(dialog.message()).toBe('Press OK to proceed!');
-            await dialog.accept();
-        });
-    }
-
-    async formSubmissionSuccessMessageIsVisible(): Promise<boolean> {
-        return await this.page.locator('#contact-page').getByText('Success! Your details have been submitted successfully.').isVisible();
+        expect(dialog.message()).toContain('Press OK to proceed!');
+        await dialog.accept();
+        await expect(this.successMessage).toBeVisible({ timeout: 10000 });
     }
 }

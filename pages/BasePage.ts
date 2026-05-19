@@ -1,22 +1,41 @@
 import { Page } from '@playwright/test';
 
 export class BasePage {
-    // Set protected page variable to be used in child classes
     protected page: Page;
-    protected baseURL: string = "https://automationexercise.com/";
+    protected baseURL: string = 'https://automationexercise.com';
 
-    // Constructor to initialize the page when the class is instantiated
     constructor(page: Page) {
         this.page = page;
     }
 
-    // Navigate to the home page when the class is instantiated
-    async navigateToHomePage() {
-        await this.page.goto(this.baseURL);
+    // Navigate to the home page using the shared base URL.
+    async navigateToHomePage(): Promise<void> {
+        await this.page.goto('/');
+        await this.waitForPageLoad();
     }
 
-    // Wait for page to load correctly
-    async waitForPageLoad() {
+    // Navigate to a relative path on the site.
+    async goto(path: string): Promise<void> {
+        await this.page.goto(path);
+        await this.waitForPageLoad();
+    }
+
+    // Wait until the browser has loaded the page DOM content.
+    async waitForPageLoad(): Promise<void> {
         await this.page.waitForLoadState('domcontentloaded');
+    }
+
+    // Accept cookie consent only when the banner is visible.
+    async acceptCookiesIfVisible(): Promise<void> {
+        const overlay = this.page.locator('.fc-dialog-overlay');
+        const consentButton = this.page.getByRole('button', { name: /Consent/i });
+
+        if (await overlay.isVisible().catch(() => false)) {
+            await consentButton.click().catch(() => {});
+            await this.page.waitForTimeout(500);
+        } else if (await consentButton.isVisible().catch(() => false)) {
+            await consentButton.click().catch(() => {});
+            await this.page.waitForTimeout(500);
+        }
     }
 }
