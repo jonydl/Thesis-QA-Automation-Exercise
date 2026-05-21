@@ -23,7 +23,7 @@
   "homepage": "https://github.com/jonydl/Thesis-QA-Automation-Exercise#readme",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.1",
     "typescript": "^5.6.0"
   }
 }

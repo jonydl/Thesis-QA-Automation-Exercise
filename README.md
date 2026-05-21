@@ -1,34 +1,15 @@
-﻿# Thesis-QA-Automation-Exercise
+﻿# QA-Automation-Exercise
 
-This repository automates key user flows on https://automationexercise.com using Playwright and TypeScript.
+Automation study project using Playwright + TypeScript implementing Page Object Model (POM) design pattern.
 
-## What changed
-- Refactored page objects to centralize navigation and cookie handling.
-- Improved selectors to reduce flakiness.
-- Fixed dialog handling in the contact form flow.
-- Added tsconfig.json and npm scripts for easier execution.
 
-## Install
-npm install
-npx playwright install
+## Project Description
 
-## Run tests
-npm test
-npm run test:headed
-npm run test:report
+As this project focuses on UI and API automation, I chose to save manual testing time with the exploratory pass (time spent on manual testing validating Golden Path, Edge Cases, and listing risky scenarios as test cases) by using existing test scenarios given by the project owner and focusing on automating the project only.
 
-## Project structure
-- pages/ - Page Object Model classes for reusable page behaviors.
-- tests/ - Independent Playwright test suites.
-- playwright.config.ts - Playwright settings and browser projects.
-- tsconfig.json - TypeScript compiler options.
+- Base project URL: https://automationexercise.com
 
-## Implemented tests
-1. tests/product-search.spec.ts - Search for "Dress" and verify results.
-2. tests/add-to-cart.spec.ts - Add two products to the cart and verify count.
-3. tests/contact-form.spec.ts - Submit the Contact Us form and validate success.
+NOTE: In order to learn, I decided to not use the created test cases for AI to construct the Playwright test suite and code, that said, all tests were coded manually with AI review, but were NEVER written by AI.
 
-## Notes
-- Tests now use a shared BasePage utility for navigation and cookie consent.
-- Contact form submission handles the browser dialog before clicking submit.
-- Browser base URL is configured in playwright.config.ts for cleaner page navigation.
+
+## Project Structure

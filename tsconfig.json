@@ -1,17 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "Node16",
-    "lib": ["ES2020", "DOM"],
-    "moduleResolution": "node16",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "types": ["node", "playwright/test"]
-  },
-  "include": ["tests", "pages", "playwright.config.ts"]
+    // Other compiler options...
+    "types": ["node"]
+  }
 }
